@@ -10,18 +10,27 @@ const Container = styled.main`
   gap: 48px;
   align-items: center;
   background-color: rgb(0, 0, 255, 0.3);
+  justify-content: center;
   width: 60%;
 `;
 
-const InfoContainer = styled.main`
+const IconContainer = styled.div`
+  flex-grow: 1;
+  justify-content: center;
+`;
+const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  flex-grow: 1;
 `;
 
-function WeatherMainCard() {
+function WeatherMainCard({}) {
   return (
     <Container>
-      <FaCloudSun />
+      <IconContainer>
+        <FaCloudSun />
+      </IconContainer>
       <InfoContainer>
         <p>When</p>
         <p>City</p>

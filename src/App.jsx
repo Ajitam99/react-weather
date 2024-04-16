@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import backgroundImage from "./data/img/clouds.jpg";
 import Search from "./components/Search";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WeatherMainCard from "./components/WeatherMainCard";
+import WeatherDayCard from "./components/WeatherDayCard";
 
 const Container = styled.div`
   background-image: url(${backgroundImage});
@@ -18,16 +19,35 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const DayCardsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 46px;
+`;
+
 function App() {
   const [inputValue, setInputValue] = useState("");
-  console.log(inputValue);
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
 
   const handleInputChange = (e) => setInputValue(e.target.value);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLat(position.coords.latitude);
+      setLng(position.coords.longitude);
+    });
+  }, []);
 
   return (
     <Container>
       <Search inputValue={inputValue} handleInputChange={handleInputChange} />
       <WeatherMainCard />
+      <DayCardsContainer>
+        <WeatherDayCard />
+        <WeatherDayCard />
+        <WeatherDayCard />
+      </DayCardsContainer>
     </Container>
   );
 }
