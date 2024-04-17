@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FaCloudSun } from "react-icons/fa";
+import TempInfo from "./TempInfo";
 
 const Container = styled.main`
   border: 1px solid #ccc;
@@ -25,17 +26,15 @@ const InfoContainer = styled.div`
   flex-grow: 1;
 `;
 
-function WeatherMainCard({}) {
+function WeatherMainCard({ tempInfo, timeInfo }) {
   return (
     <Container>
       <IconContainer>
         <FaCloudSun />
       </IconContainer>
       <InfoContainer>
-        <p>When</p>
         <p>City</p>
-        <p>Temperature: XXX</p>
-        <p>Weather</p>
+        <TempInfo tempInfo={tempInfo} timeInfo={timeInfo} />
       </InfoContainer>
     </Container>
   );

@@ -29,6 +29,12 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
+  const [weatherData, setWeatherData] = useState(null);
+  const [error, setError] = useState(null);
+  const [tempInfo, setTempInfo] = useState([]);
+  const [timeInfo, setTimeInfo] = useState([]);
+
+  const apiAdress = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m&forecast_days=3`;
 
   const handleInputChange = (e) => setInputValue(e.target.value);
 
@@ -39,10 +45,39 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch(apiAdress);
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const data = await response.json();
+        setWeatherData(data);
+        // Move setting tempInfo and timeInfo here
+        setTempInfo(data.hourly.temperature_2m);
+        setTimeInfo(data.hourly.time);
+      } catch (error) {
+        console.error("Error fetching weather forecast:", error.message);
+        setError("Failed to fetch weather forecast data");
+      }
+    };
+
+    if (lat !== "" && lng !== "") {
+      fetchWeather();
+    }
+
+    return () => {};
+  }, [lat, lng, apiAdress]);
+
+  /* console.log(weatherData.hourly.temperature_2m);
+  console.log(weatherData.hourly.time); */
+
   return (
     <Container>
       <Search inputValue={inputValue} handleInputChange={handleInputChange} />
-      <WeatherMainCard />
+      <WeatherMainCard tempInfo={tempInfo} timeInfo={timeInfo} />
       <DayCardsContainer>
         <WeatherDayCard />
         <WeatherDayCard />
