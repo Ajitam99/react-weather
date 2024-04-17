@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const InfoArr = styled.div`
@@ -13,15 +14,11 @@ const StyledTempInfo = styled.div`
   gap: 16px;
 `;
 
-function TempInfo({ tempInfo, timeInfo }) {
-  console.log(tempInfo);
-  console.log(timeInfo);
+function TempInfo({ weatherData }) {
+  console.log(weatherData);
+
   return (
     <InfoArr>
-      <StyledTempInfo>
-        <div>time</div>
-        <div>temp</div>
-      </StyledTempInfo>
       <StyledTempInfo>
         <div>time</div>
         <div>temp</div>

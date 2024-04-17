@@ -26,7 +26,7 @@ const InfoContainer = styled.div`
   flex-grow: 1;
 `;
 
-function WeatherMainCard({ tempInfo, timeInfo }) {
+function WeatherMainCard({ weatherData }) {
   return (
     <Container>
       <IconContainer>
@@ -34,7 +34,7 @@ function WeatherMainCard({ tempInfo, timeInfo }) {
       </IconContainer>
       <InfoContainer>
         <p>City</p>
-        <TempInfo tempInfo={tempInfo} timeInfo={timeInfo} />
+        <TempInfo weatherData={weatherData} />
       </InfoContainer>
     </Container>
   );
